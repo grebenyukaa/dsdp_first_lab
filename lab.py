@@ -7,13 +7,13 @@ secret = u'ZL0nT6xtVhYeE37zRN_AR0ZRv3U'
 username = u'alvearian'
 password = u'for da labs!'
 
-def get_some_data():
-    client_auth = requests.auth.HTTPBasicAuth(appkey, secret)
+def get_some_data(username, password, appkey, appsecret):
+    client_auth = requests.auth.HTTPBasicAuth(appkey, appsecret)
 
     post_data = {\
         'grant_type': 'password',\
-        'username': 'alvearian',\
-        'password': 'for da labs!',\
+        'username': username,\
+        'password': password,\
     }
     response = requests.post("https://ssl.reddit.com/api/v1/access_token", auth=client_auth, data=post_data)
     
@@ -26,7 +26,7 @@ def get_some_data():
     return response
 
 def query_reddit():
-    r = get_some_data()
+    r = get_some_data(username, password, appkey, secret)
     if not 'error' in r.json():
         print(r.json())
     else:
